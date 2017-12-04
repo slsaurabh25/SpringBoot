@@ -14,7 +14,8 @@ angular.module('crudApp').controller('UserController',
         self.removeUser = removeUser;
         self.editUser = editUser;
         self.reset = reset;
-
+        self.ExcelExport = ExcelExport;
+        self.getFileData = getFileData;
         self.successMessage = '';
         self.errorMessage = '';
         self.done = false;
@@ -104,13 +105,46 @@ angular.module('crudApp').controller('UserController',
                 }
             );
         }
+        
         function reset(){
             self.successMessage='';
             self.errorMessage='';
             self.user={};
             $scope.myForm.$setPristine(); //reset Form
         }
+       
+        function ExcelExport() {
+
+        	console.log("Inside excelExport");
+            var input = document.getElementById('importFile');
+            var reader = new FileReader();
+            reader.onload = function(){
+                var fileData = reader.result;
+                var wb = XLSX.read(fileData, {type : 'binary'});
+                var allData = [];
+                
+                //For all Sheets
+                /*wb.SheetNames.forEach(function(sheetName){
+                var rowObj =XLSX.utils.sheet_to_row_object_array(wb.Sheets[sheetName]);
+                var jsonObj = JSON.stringify(rowObj);
+                allData.push(jsonObj);
+                console.log(jsonObj);
+                })*/
+                
+                //For single sheet when sheet name known
+                var rowObj =XLSX.utils.sheet_to_row_object_array(wb.Sheets["Sheet1"]);
+                var jsonObj = JSON.stringify(rowObj);
+                
+                $scope.fileData = jsonObj;
+                console.log($scope.fileData);
+            };
+            reader.readAsBinaryString(input.files[0]);
+            };
+        
+            function getFileData(){
+            	console.log("$scope.fileData",$scope.fileData);
+                return $scope.fileData;
+            }
+        
     }
-
-
-    ]);
+]);

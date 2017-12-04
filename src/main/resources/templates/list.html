@@ -47,6 +47,35 @@
     </div>
     <div class="panel panel-default">
         <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Uplad File Data </span></div>
+		<div class="panel-body">
+		    <input type="file" id="importFile" name="file"/>
+		  	<br></br>
+		  	<button ng-click="ctrl.ExcelExport()">Add</button>
+		  	
+			<div class="table-responsive">
+		        <table class="table table-hover">
+		            <thead>
+		            <tr>
+		                <th>ID</th>
+		                <th>NAME</th>
+		                <th>AGE</th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr ng-repeat="x in ctrl.getFileData() track by $index">
+		                <td>{{x.serialNo}}</td>
+		                <td>{{x.name}}</td>
+		                <td>{{x.age}}</td>
+		            </tr>
+		            </tbody>
+		        </table>		
+			</div>
+		</div>
+	</div>
+	
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
         <div class="panel-heading"><span class="lead">List of Users </span></div>
 		<div class="panel-body">
 			<div class="table-responsive">

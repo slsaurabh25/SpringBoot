@@ -104,6 +104,6 @@ angular.module('crudApp').factory('UserService',
                     );
                 return deferred.promise;
             }
-
+            
         }
     ]);
